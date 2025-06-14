@@ -4,7 +4,11 @@ import tkinter as tk
 from tkinter import messagebox
 from models.location import Location
 from models.item import Item
-
+from gui.shop_window import ShopWindow
+from gui.map_window import MapWindow
+from gui.info_window import InfoWindow
+from gui.inventory_window import InventoryWindow
+from gui.save_load_window import SaveLoadWindow
 
 class MainWindow:
     def __init__(self, root, game_state):
@@ -26,6 +30,21 @@ class MainWindow:
 
         self.button_quit = tk.Button(root, text="Quit", command=root.quit)
         self.button_quit.pack(pady=20)
+        
+        self.button_shop = tk.Button(root, text="Open Shop", command=self.open_shop)
+        self.button_shop.pack(pady=5)
+
+        self.button_map = tk.Button(root, text="Open Map", command=self.open_map)
+        self.button_map.pack(pady=5)
+
+        self.button_info = tk.Button(root, text="Game Info", command=self.open_info)
+        self.button_info.pack(pady=5)
+
+        self.button_inventory = tk.Button(root, text="Inventory", command=self.open_inventory)
+        self.button_inventory.pack(pady=5)
+
+        self.button_save_load = tk.Button(root, text="Save / Load", command=self.open_save_load)
+        self.button_save_load.pack(pady=5)
 
         self.refresh()
 
@@ -46,3 +65,18 @@ class MainWindow:
 
         inv_text = "Inventory: " + ", ".join([item.name for item in self.game_state.inventory])
         self.label_inventory.config(text=inv_text)
+        
+    def open_shop(self):
+        ShopWindow(self.root, self.game_state)
+
+    def open_map(self):
+        MapWindow(self.root, self.game_state)
+
+    def open_info(self):
+        InfoWindow(self.root, self.game_state)
+
+    def open_inventory(self):
+        InventoryWindow(self.root, self.game_state)
+
+    def open_save_load(self):
+        SaveLoadWindow(self.root, self.game_state)
